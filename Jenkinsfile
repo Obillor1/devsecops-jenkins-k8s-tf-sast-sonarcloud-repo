@@ -18,7 +18,26 @@ pipeline {
       }
     }
 }
+
+	stage('Build') { 
+            steps { 
+               withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
+                 script{
+                 app =  docker.build("oso")
+                 }
+               }
+            }
+    }
+
+	stage('Push') {
+            steps {
+                script{
+                    docker.withRegistry('https://275254035816.dkr.ecr.us-west-1.amazonaws.com', 'ecr:us-west-1:aws-credentials') {
+                    app.push("latest")
+                    }
+                }
+            }
+    	}
 }
 }
-	
 // #TOKEN ID 559b88b0-33c8-47e8-8fb8-a765dc24e5d9
