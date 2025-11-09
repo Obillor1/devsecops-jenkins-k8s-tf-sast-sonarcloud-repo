@@ -38,6 +38,16 @@ pipeline {
                 }
             }
     	}
+
+	stage('Kubernetes Deployment of ASG Bugg Web Application') {
+	   steps {
+	      withKubeConfig([credentialsId: 'kubelogin']) {
+		  sh('kubectl delete all --all -n devsecops')
+		  sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
+		}
+	      }
+
+}
 }
 }
 // #TOKEN ID 559b88b0-33c8-47e8-8fb8-a765dc24e5d9
