@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Oso-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Oso
+  template:
+    metadata:
+      labels:
+        app: Oso
+    spec:
+      containers:
+      - name: OsoCon
+        image: 275254035816.dkr.ecr.us-west-1.amazonaws.com/oso
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: asgbuggy
+    k8s-app: asgbuggy
+  name: asgbuggy
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: Oso
