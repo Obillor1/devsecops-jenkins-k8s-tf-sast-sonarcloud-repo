@@ -10,4 +10,15 @@ pipeline {
 			}
         } 
   }
+	stage('Test') {
+      steps {
+        echo 'Testing...'
+        withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
+		sh 'mvn snyk:test -fn'
+        )
+      }
+    }
 }
+
+	
+#TOKEN ID 559b88b0-33c8-47e8-8fb8-a765dc24e5d9
