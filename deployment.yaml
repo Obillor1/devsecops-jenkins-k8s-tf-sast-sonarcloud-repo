@@ -13,7 +13,7 @@ spec:
         app: Oso
     spec:
       containers:
-      - name: OsoCon
+      - name: osocon
         image: 275254035816.dkr.ecr.us-west-1.amazonaws.com/oso
         imagePullPolicy: Always
         ports:
