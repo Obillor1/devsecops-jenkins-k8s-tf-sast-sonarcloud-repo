@@ -42,8 +42,8 @@ pipeline {
 	stage('Kubernetes Deployment of ASG Bugg Web Application') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
-		  sh '/home/ec2-user/bin/kubectl delete all --all -n devsecops'
-		  // sh('kubectl delete all --all -n devsecops')
+		  // sh '/home/ec2-user/bin/kubectl delete all --all -n devsecops'
+		  sh('kubectl delete all --all -n devsecops')
 		  sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
 		}
 	      }
